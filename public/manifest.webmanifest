@@ -1,0 +1,15 @@
+{
+  "name": "ABC Picture Book · 会动的字母绘本",
+  "short_name": "ABC 绘本",
+  "description": "A moving alphabet picture book for little ones.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "fullscreen",
+  "orientation": "any",
+  "background_color": "#cfeaf9",
+  "theme_color": "#bfe4f7",
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}

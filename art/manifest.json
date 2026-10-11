@@ -1,0 +1,261 @@
+{
+  "_note": "name -> source (relative to art/). Heroes get thumb:true for the home page tiles.",
+  "apple": {
+    "src": "raw/a_apple.png",
+    "max": 900,
+    "thumb": true
+  },
+  "ball": {
+    "src": "raw/b_ball.png",
+    "max": 900,
+    "thumb": true
+  },
+  "cat": {
+    "src": "raw/c_cat.png",
+    "max": 900,
+    "thumb": true
+  },
+  "dog": {
+    "src": "raw/d_dog.png",
+    "max": 900,
+    "thumb": true
+  },
+  "tree": {
+    "src": "raw/a_tree.png",
+    "max": 1000
+  },
+  "cloud1": {
+    "src": "parts/decor/0.png",
+    "max": 420
+  },
+  "cloud2": {
+    "src": "parts/decor/1.png",
+    "max": 420
+  },
+  "bush": {
+    "src": "parts/decor/2.png",
+    "max": 420
+  },
+  "grass": {
+    "src": "parts/decor/3.png",
+    "max": 400
+  },
+  "flower_r": {
+    "src": "parts/decor/4.png",
+    "max": 300
+  },
+  "flower_y": {
+    "src": "parts/decor/5.png",
+    "max": 300
+  },
+  "butterfly": {
+    "src": "parts/decor/6.png",
+    "max": 300
+  },
+  "bird": {
+    "src": "parts/decor/7.png",
+    "max": 300
+  },
+  "kid_head_a": {
+    "src": "parts/kid_parts_v1/0.png",
+    "max": 9999,
+    "box": [
+      430,
+      452
+    ]
+  },
+  "kid_head_b": {
+    "src": "parts/kid_parts_v1/1.png",
+    "max": 9999,
+    "box": [
+      430,
+      452
+    ]
+  },
+  "kid_head_c": {
+    "src": "parts/kid_parts_v1/2.png",
+    "max": 9999,
+    "box": [
+      430,
+      452
+    ]
+  },
+  "kid_upperarm": {
+    "src": "parts/kid_parts_v1/3.png",
+    "max": 9999,
+    "trim": false
+  },
+  "kid_torso": {
+    "src": "parts/kid_parts_v1/4.png",
+    "max": 9999,
+    "trim": false
+  },
+  "kid_forearm": {
+    "src": "parts/kid_parts_v1/5.png",
+    "max": 9999,
+    "trim": false
+  },
+  "kid_leg": {
+    "src": "parts/kid_parts_v1/6.png",
+    "max": 9999,
+    "trim": false
+  },
+  "egg": {
+    "src": "raw/e_egg.png",
+    "max": 900,
+    "thumb": true
+  },
+  "fish": {
+    "src": "raw/f_fish.png",
+    "max": 900,
+    "thumb": true
+  },
+  "goat": {
+    "src": "raw/g_goat.png",
+    "max": 900,
+    "thumb": true
+  },
+  "hat": {
+    "src": "raw/h_hat.png",
+    "max": 900,
+    "thumb": true
+  },
+  "icecream": {
+    "src": "raw/i_icecream.png",
+    "max": 900,
+    "thumb": true
+  },
+  "juice": {
+    "src": "raw/j_juice2.png",
+    "max": 900,
+    "thumb": true
+  },
+  "kite": {
+    "src": "raw/k_kite.png",
+    "max": 900,
+    "thumb": true
+  },
+  "lion": {
+    "src": "raw/l_lion.png",
+    "max": 900,
+    "thumb": true
+  },
+  "moon": {
+    "src": "raw/m_moon.png",
+    "max": 900,
+    "thumb": true
+  },
+  "noodles": {
+    "src": "raw/n_noodles.png",
+    "max": 900,
+    "thumb": true
+  },
+  "octopus": {
+    "src": "raw/o_octopus.png",
+    "max": 900,
+    "thumb": true
+  },
+  "pig": {
+    "src": "raw/p_pig.png",
+    "max": 900,
+    "thumb": true
+  },
+  "queen": {
+    "src": "raw/q_queen.png",
+    "max": 900,
+    "thumb": true
+  },
+  "rainbow": {
+    "src": "raw/r_rainbow.png",
+    "max": 900,
+    "thumb": true
+  },
+  "sun": {
+    "src": "raw/s_sun.png",
+    "max": 900,
+    "thumb": true
+  },
+  "teddy": {
+    "src": "raw/t_teddy.png",
+    "max": 900,
+    "thumb": true
+  },
+  "umbrella": {
+    "src": "raw/u_umbrella.png",
+    "max": 900,
+    "thumb": true
+  },
+  "van": {
+    "src": "raw/v_van.png",
+    "max": 900,
+    "thumb": true
+  },
+  "whale": {
+    "src": "raw/w_whale.png",
+    "max": 900,
+    "thumb": true
+  },
+  "fox": {
+    "src": "raw/x_fox.png",
+    "max": 900,
+    "thumb": true
+  },
+  "yoyo": {
+    "src": "raw/y_yoyo.png",
+    "max": 900,
+    "thumb": true
+  },
+  "zebra": {
+    "src": "raw/z_zebra.png",
+    "max": 900,
+    "thumb": true
+  },
+  "lion_roar": {
+    "src": "raw/l_lion_roar.png",
+    "max": 900
+  },
+  "umbrella_closed": {
+    "src": "raw/u_umbrella_closed.png",
+    "max": 800
+  },
+  "box": {
+    "src": "raw/x_box.png",
+    "max": 800
+  },
+  "egg_top": {
+    "src": "parts/e_eggkit/0.png",
+    "max": 600
+  },
+  "chick": {
+    "src": "parts/e_eggkit/1.png",
+    "max": 640
+  },
+  "egg_bottom": {
+    "src": "parts/e_eggkit/2.png",
+    "max": 600
+  },
+  "seaweed1": {
+    "src": "parts/seadecor/0.png",
+    "max": 520
+  },
+  "seaweed2": {
+    "src": "parts/seadecor/1.png",
+    "max": 480
+  },
+  "coral": {
+    "src": "parts/seadecor/2.png",
+    "max": 480
+  },
+  "starfish": {
+    "src": "parts/seadecor/3.png",
+    "max": 320
+  },
+  "shell": {
+    "src": "parts/seadecor/4.png",
+    "max": 320
+  },
+  "rock": {
+    "src": "parts/seadecor/5.png",
+    "max": 360
+  }
+}

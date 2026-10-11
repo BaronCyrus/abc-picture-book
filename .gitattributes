@@ -1,0 +1,2 @@
+art/parts/**/*.png filter=lfs diff=lfs merge=lfs -text
+art/raw/*.png filter=lfs diff=lfs merge=lfs -text
