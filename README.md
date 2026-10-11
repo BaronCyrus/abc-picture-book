@@ -1,7 +1,9 @@
 # ABC Picture Book · 会动的字母绘本
 
 给 4 岁以下孩子的英语启蒙小网站：26 个字母，每个字母一个单词、一句话、一幕会动的剪纸小剧场。
-纯静态站点，可直接部署到 GitHub Pages。
+纯静态站点，已部署在 GitHub Pages：**<https://baroncyrus.github.io/abc-picture-book/>**
+
+![手机竖屏：封面、首页、单词页、故事页](docs/screenshots/phone.jpg)
 
 ```
 封面（点一下开始，解锁声音）
@@ -27,6 +29,9 @@ npm run build
 
 `npm run build` 的产物在 `dist/`，使用相对路径，放在任何子目录下都能跑。
 推送到 `main` 分支后，`.github/workflows/pages.yml` 会自动构建并发布到 GitHub Pages。
+
+插画原图（`art/raw/`、`art/parts/` 下的 PNG）用 Git LFS 存放；只想跑网站不需要它们
+（`GIT_LFS_SKIP_SMUDGE=1 git clone …` 可跳过下载），要重新导出精灵图时再 `git lfs pull`。
 
 ## 目录
 

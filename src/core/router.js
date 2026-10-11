@@ -97,6 +97,7 @@ async function render() {
     await nextFrame(1);
     const reveal = wipe.reveal(current.revealAt ? current.revealAt() : undefined);
     if (first) {
+      document.getElementById('boot')?.remove();
       await reveal;
       await cover();
     }

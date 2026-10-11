@@ -10,6 +10,7 @@ for (const ev of ['contextmenu', 'gesturestart', 'gesturechange', 'dragstart', '
 }
 
 function unsupported() {
+  document.getElementById('boot')?.remove();
   const box = document.createElement('div');
   box.className = 'unsupported';
   box.innerHTML =
