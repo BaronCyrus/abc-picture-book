@@ -1,861 +1,35 @@
 {
  "ana": {
-  "sentence/a": {
-   "dur": 1.214,
-   "text": "Pick an apple.",
-   "words": [
-    {
-     "d": 0.282,
-     "t": 0.035,
-     "w": "Pick"
-    },
-    {
-     "d": 0.174,
-     "t": 0.33,
-     "w": "an"
-    },
-    {
-     "d": 0.536,
-     "t": 0.518,
-     "w": "apple"
-    }
-   ]
+  "sound/c": {
+   "dur": 0.653,
+   "text": "Meow!"
   },
-  "sentence/b": {
-   "dur": 1.238,
-   "text": "Bounce the ball.",
-   "words": [
-    {
-     "d": 0.441,
-     "t": 0.035,
-     "w": "Bounce"
-    },
-    {
-     "d": 0.12,
-     "t": 0.49,
-     "w": "the"
-    },
-    {
-     "d": 0.455,
-     "t": 0.624,
-     "w": "ball"
-    }
-   ]
+  "sound/d": {
+   "dur": 1.921,
+   "text": "Woof! Woof!"
   },
-  "sentence/c": {
-   "dur": 1.065,
-   "text": "Pat the cat.",
-   "words": [
-    {
-     "d": 0.298,
-     "t": 0.035,
-     "w": "Pat"
-    },
-    {
-     "d": 0.112,
-     "t": 0.346,
-     "w": "the"
-    },
-    {
-     "d": 0.435,
-     "t": 0.47,
-     "w": "cat"
-    }
-   ]
+  "sound/g": {
+   "dur": 0.637,
+   "text": "Maa!"
   },
-  "sentence/d": {
-   "dur": 1.176,
-   "text": "Walk the dog.",
-   "words": [
-    {
-     "d": 0.366,
-     "t": 0.035,
-     "w": "Walk"
-    },
-    {
-     "d": 0.144,
-     "t": 0.414,
-     "w": "the"
-    },
-    {
-     "d": 0.445,
-     "t": 0.571,
-     "w": "dog"
-    }
-   ]
+  "sound/l": {
+   "dur": 0.559,
+   "text": "Roar!"
   },
-  "sentence/e": {
-   "dur": 1.814,
-   "text": "The egg cracks open.",
-   "words": [
-    {
-     "d": 0.169,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.338,
-     "t": 0.218,
-     "w": "egg"
-    },
-    {
-     "d": 0.535,
-     "t": 0.57,
-     "w": "cracks"
-    },
-    {
-     "d": 0.535,
-     "t": 1.119,
-     "w": "open"
-    }
-   ]
+  "sound/o": {
+   "dur": 0.652,
+   "text": "Hello!"
   },
-  "sentence/f": {
-   "dur": 1.557,
-   "text": "The fish swims.",
-   "words": [
-    {
-     "d": 0.195,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.389,
-     "t": 0.243,
-     "w": "fish"
-    },
-    {
-     "d": 0.75,
-     "t": 0.646,
-     "w": "swims"
-    }
-   ]
+  "sound/p": {
+   "dur": 1.109,
+   "text": "Oink, oink!"
   },
-  "sentence/g": {
-   "dur": 1.761,
-   "text": "The goat eats grass.",
-   "words": [
-    {
-     "d": 0.198,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.353,
-     "t": 0.247,
-     "w": "goat"
-    },
-    {
-     "d": 0.31,
-     "t": 0.614,
-     "w": "eats"
-    },
-    {
-     "d": 0.663,
-     "t": 0.938,
-     "w": "grass"
-    }
-   ]
-  },
-  "sentence/h": {
-   "dur": 1.095,
-   "text": "Put on the hat.",
-   "words": [
-    {
-     "d": 0.201,
-     "t": 0.035,
-     "w": "Put"
-    },
-    {
-     "d": 0.178,
-     "t": 0.248,
-     "w": "on"
-    },
-    {
-     "d": 0.059,
-     "t": 0.438,
-     "w": "the"
-    },
-    {
-     "d": 0.426,
-     "t": 0.509,
-     "w": "hat"
-    }
-   ]
-  },
-  "sentence/i": {
-   "dur": 1.611,
-   "text": "I like ice cream.",
-   "words": [
-    {
-     "d": 0.184,
-     "t": 0.035,
-     "w": "I"
-    },
-    {
-     "d": 0.34,
-     "t": 0.233,
-     "w": "like"
-    },
-    {
-     "d": 0.311,
-     "t": 0.587,
-     "w": "ice"
-    },
-    {
-     "d": 0.538,
-     "t": 0.913,
-     "w": "cream"
-    }
-   ]
-  },
-  "sentence/j": {
-   "dur": 1.399,
-   "text": "Drink the juice.",
-   "words": [
-    {
-     "d": 0.434,
-     "t": 0.035,
-     "w": "Drink"
-    },
-    {
-     "d": 0.14,
-     "t": 0.483,
-     "w": "the"
-    },
-    {
-     "d": 0.602,
-     "t": 0.637,
-     "w": "juice"
-    }
-   ]
-  },
-  "sentence/k": {
-   "dur": 1.055,
-   "text": "Fly a kite.",
-   "words": [
-    {
-     "d": 0.358,
-     "t": 0.035,
-     "w": "Fly"
-    },
-    {
-     "d": 0.089,
-     "t": 0.404,
-     "w": "a"
-    },
-    {
-     "d": 0.391,
-     "t": 0.504,
-     "w": "kite"
-    }
-   ]
-  },
-  "sentence/l": {
-   "dur": 1.647,
-   "text": "The lion roars.",
-   "words": [
-    {
-     "d": 0.195,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.6,
-     "t": 0.244,
-     "w": "lion"
-    },
-    {
-     "d": 0.628,
-     "t": 0.859,
-     "w": "roars"
-    }
-   ]
-  },
-  "sentence/m": {
-   "dur": 1.378,
-   "text": "I see the moon.",
-   "words": [
-    {
-     "d": 0.209,
-     "t": 0.035,
-     "w": "I"
-    },
-    {
-     "d": 0.32,
-     "t": 0.258,
-     "w": "see"
-    },
-    {
-     "d": 0.125,
-     "t": 0.592,
-     "w": "the"
-    },
-    {
-     "d": 0.487,
-     "t": 0.731,
-     "w": "moon"
-    }
-   ]
-  },
-  "sentence/n": {
-   "dur": 1.365,
-   "text": "Eat the noodles.",
-   "words": [
-    {
-     "d": 0.251,
-     "t": 0.035,
-     "w": "Eat"
-    },
-    {
-     "d": 0.125,
-     "t": 0.3,
-     "w": "the"
-    },
-    {
-     "d": 0.766,
-     "t": 0.439,
-     "w": "noodles"
-    }
-   ]
-  },
-  "sentence/o": {
-   "dur": 2.237,
-   "text": "The octopus waves hello.",
-   "words": [
-    {
-     "d": 0.197,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.775,
-     "t": 0.246,
-     "w": "octopus"
-    },
-    {
-     "d": 0.465,
-     "t": 1.035,
-     "w": "waves"
-    },
-    {
-     "d": 0.563,
-     "t": 1.514,
-     "w": "hello"
-    }
-   ]
-  },
-  "sentence/p": {
-   "dur": 1.96,
-   "text": "The pig jumps in the mud.",
-   "words": [
-    {
-     "d": 0.193,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.359,
-     "t": 0.242,
-     "w": "pig"
-    },
-    {
-     "d": 0.469,
-     "t": 0.614,
-     "w": "jumps"
-    },
-    {
-     "d": 0.138,
-     "t": 1.097,
-     "w": "in"
-    },
-    {
-     "d": 0.097,
-     "t": 1.249,
-     "w": "the"
-    },
-    {
-     "d": 0.441,
-     "t": 1.359,
-     "w": "mud"
-    }
-   ]
-  },
-  "sentence/q": {
-   "dur": 1.623,
-   "text": "Here comes the queen.",
-   "words": [
-    {
-     "d": 0.322,
-     "t": 0.035,
-     "w": "Here"
-    },
-    {
-     "d": 0.378,
-     "t": 0.371,
-     "w": "comes"
-    },
-    {
-     "d": 0.112,
-     "t": 0.763,
-     "w": "the"
-    },
-    {
-     "d": 0.574,
-     "t": 0.889,
-     "w": "queen"
-    }
-   ]
-  },
-  "sentence/r": {
-   "dur": 1.736,
-   "text": "Look, a rainbow!",
-   "words": [
-    {
-     "d": 0.392,
-     "t": 0.035,
-     "w": "Look"
-    },
-    {
-     "d": 0.056,
-     "t": 0.763,
-     "w": "a"
-    },
-    {
-     "d": 0.742,
-     "t": 0.833,
-     "w": "rainbow"
-    }
-   ]
-  },
-  "sentence/s": {
-   "dur": 1.464,
-   "text": "The sun comes up.",
-   "words": [
-    {
-     "d": 0.167,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.397,
-     "t": 0.214,
-     "w": "sun"
-    },
-    {
-     "d": 0.359,
-     "t": 0.625,
-     "w": "comes"
-    },
-    {
-     "d": 0.308,
-     "t": 0.997,
-     "w": "up"
-    }
-   ]
-  },
-  "sentence/t": {
-   "dur": 1.262,
-   "text": "Hug the teddy.",
-   "words": [
-    {
-     "d": 0.365,
-     "t": 0.035,
-     "w": "Hug"
-    },
-    {
-     "d": 0.149,
-     "t": 0.413,
-     "w": "the"
-    },
-    {
-     "d": 0.527,
-     "t": 0.575,
-     "w": "teddy"
-    }
-   ]
-  },
-  "sentence/u": {
-   "dur": 1.548,
-   "text": "Open the umbrella.",
-   "words": [
-    {
-     "d": 0.437,
-     "t": 0.035,
-     "w": "Open"
-    },
-    {
-     "d": 0.127,
-     "t": 0.486,
-     "w": "the"
-    },
-    {
-     "d": 0.761,
-     "t": 0.627,
-     "w": "umbrella"
-    }
-   ]
-  },
-  "sentence/v": {
-   "dur": 1.754,
-   "text": "The van goes vroom!",
-   "words": [
-    {
-     "d": 0.195,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.404,
-     "t": 0.244,
-     "w": "van"
-    },
-    {
-     "d": 0.376,
-     "t": 0.662,
-     "w": "goes"
-    },
-    {
-     "d": 0.543,
-     "t": 1.052,
-     "w": "vroom"
-    }
-   ]
-  },
-  "sentence/w": {
-   "dur": 1.972,
-   "text": "The whale sprays water.",
-   "words": [
-    {
-     "d": 0.182,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.406,
-     "t": 0.231,
-     "w": "whale"
-    },
-    {
-     "d": 0.56,
-     "t": 0.651,
-     "w": "sprays"
-    },
-    {
-     "d": 0.588,
-     "t": 1.224,
-     "w": "water"
-    }
-   ]
-  },
-  "sentence/x": {
-   "dur": 2.046,
-   "text": "The fox is in the box.",
-   "words": [
-    {
-     "d": 0.172,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.502,
-     "t": 0.222,
-     "w": "fox"
-    },
-    {
-     "d": 0.187,
-     "t": 0.738,
-     "w": "is"
-    },
-    {
-     "d": 0.158,
-     "t": 0.939,
-     "w": "in"
-    },
-    {
-     "d": 0.115,
-     "t": 1.111,
-     "w": "the"
-    },
-    {
-     "d": 0.646,
-     "t": 1.24,
-     "w": "box"
-    }
-   ]
-  },
-  "sentence/y": {
-   "dur": 2.27,
-   "text": "The yo-yo goes up and down.",
-   "words": [
-    {
-     "d": 0.126,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.631,
-     "t": 0.175,
-     "w": "yo-yo"
-    },
-    {
-     "d": 0.336,
-     "t": 0.82,
-     "w": "goes"
-    },
-    {
-     "d": 0.252,
-     "t": 1.17,
-     "w": "up"
-    },
-    {
-     "d": 0.154,
-     "t": 1.437,
-     "w": "and"
-    },
-    {
-     "d": 0.505,
-     "t": 1.605,
-     "w": "down"
-    }
-   ]
-  },
-  "sentence/z": {
-   "dur": 1.964,
-   "text": "The zebra runs fast.",
-   "words": [
-    {
-     "d": 0.189,
-     "t": 0.035,
-     "w": "The"
-    },
-    {
-     "d": 0.513,
-     "t": 0.238,
-     "w": "zebra"
-    },
-    {
-     "d": 0.419,
-     "t": 0.764,
-     "w": "runs"
-    },
-    {
-     "d": 0.608,
-     "t": 1.196,
-     "w": "fast"
-    }
-   ]
-  },
-  "word/a": {
-   "dur": 0.677,
-   "text": "Apple."
-  },
-  "word/b": {
-   "dur": 0.577,
-   "text": "Ball."
-  },
-  "word/c": {
-   "dur": 0.518,
-   "text": "Cat."
-  },
-  "word/d": {
-   "dur": 0.568,
-   "text": "Dog."
-  },
-  "word/e": {
-   "dur": 0.448,
-   "text": "Egg."
-  },
-  "word/f": {
-   "dur": 0.648,
-   "text": "Fish."
-  },
-  "word/g": {
-   "dur": 0.45,
-   "text": "Goat."
-  },
-  "word/h": {
-   "dur": 0.515,
-   "text": "Hat."
-  },
-  "word/i": {
-   "dur": 1.014,
-   "text": "Ice cream."
-  },
-  "word/j": {
-   "dur": 0.712,
-   "text": "Juice."
-  },
-  "word/k": {
-   "dur": 0.521,
-   "text": "Kite."
-  },
-  "word/l": {
-   "dur": 0.674,
-   "text": "Lion."
-  },
-  "word/m": {
-   "dur": 0.628,
-   "text": "Moon."
-  },
-  "word/n": {
-   "dur": 0.943,
-   "text": "Noodles."
-  },
-  "word/o": {
-   "dur": 1.045,
-   "text": "Octopus."
-  },
-  "word/p": {
-   "dur": 0.517,
-   "text": "Pig."
-  },
-  "word/q": {
-   "dur": 0.636,
-   "text": "Queen."
-  },
-  "word/r": {
-   "dur": 0.861,
-   "text": "Rainbow."
-  },
-  "word/s": {
-   "dur": 0.624,
-   "text": "Sun."
-  },
-  "word/t": {
-   "dur": 0.634,
-   "text": "Teddy."
-  },
-  "word/u": {
-   "dur": 0.924,
-   "text": "Umbrella."
-  },
-  "word/v": {
-   "dur": 0.567,
-   "text": "Van."
-  },
-  "word/w": {
-   "dur": 0.601,
-   "text": "Whale."
-  },
-  "word/x": {
-   "dur": 0.76,
-   "text": "Fox."
-  },
-  "word/y": {
-   "dur": 0.773,
-   "text": "Yo-yo."
-  },
-  "word/z": {
-   "dur": 0.792,
-   "text": "Zebra."
+  "sound/v": {
+   "dur": 1.08,
+   "text": "Beep, beep!"
   }
  },
  "ava": {
-  "letter/a": {
-   "dur": 0.511,
-   "text": "A."
-  },
-  "letter/b": {
-   "dur": 0.571,
-   "text": "B."
-  },
-  "letter/c": {
-   "dur": 0.742,
-   "text": "C."
-  },
-  "letter/d": {
-   "dur": 0.605,
-   "text": "D."
-  },
-  "letter/e": {
-   "dur": 0.469,
-   "text": "E."
-  },
-  "letter/f": {
-   "dur": 0.534,
-   "text": "F."
-  },
-  "letter/g": {
-   "dur": 0.74,
-   "text": "G."
-  },
-  "letter/h": {
-   "dur": 0.718,
-   "text": "H."
-  },
-  "letter/i": {
-   "dur": 0.512,
-   "text": "I."
-  },
-  "letter/j": {
-   "dur": 0.727,
-   "text": "J."
-  },
-  "letter/k": {
-   "dur": 0.564,
-   "text": "K."
-  },
-  "letter/l": {
-   "dur": 0.575,
-   "text": "L."
-  },
-  "letter/m": {
-   "dur": 0.662,
-   "text": "M."
-  },
-  "letter/n": {
-   "dur": 0.612,
-   "text": "N."
-  },
-  "letter/o": {
-   "dur": 0.551,
-   "text": "O."
-  },
-  "letter/p": {
-   "dur": 0.569,
-   "text": "P."
-  },
-  "letter/q": {
-   "dur": 0.626,
-   "text": "Q."
-  },
-  "letter/r": {
-   "dur": 0.608,
-   "text": "R."
-  },
-  "letter/s": {
-   "dur": 0.726,
-   "text": "S."
-  },
-  "letter/t": {
-   "dur": 0.594,
-   "text": "T."
-  },
-  "letter/u": {
-   "dur": 0.742,
-   "text": "U."
-  },
-  "letter/v": {
-   "dur": 0.694,
-   "text": "V."
-  },
-  "letter/w": {
-   "dur": 0.852,
-   "text": "W."
-  },
-  "letter/x": {
-   "dur": 0.716,
-   "text": "X."
-  },
-  "letter/y": {
-   "dur": 0.784,
-   "text": "Y."
-  },
-  "letter/z": {
-   "dur": 0.726,
-   "text": "Z."
-  },
   "sentence/a": {
    "dur": 1.113,
    "text": "Pick an apple.",
@@ -1176,7 +350,7 @@
    ]
   },
   "sentence/o": {
-   "dur": 2.36,
+   "dur": 2.356,
    "text": "The octopus waves hello.",
    "words": [
     {
@@ -1185,28 +359,28 @@
      "w": "The"
     },
     {
-     "d": 0.775,
-     "t": 0.31,
+     "d": 0.774,
+     "t": 0.309,
      "w": "octopus"
     },
     {
      "d": 0.452,
-     "t": 1.101,
+     "t": 1.099,
      "w": "waves"
     },
     {
-     "d": 0.63,
-     "t": 1.57,
+     "d": 0.629,
+     "t": 1.567,
      "w": "hello"
     }
    ]
   },
   "sentence/p": {
-   "dur": 1.814,
+   "dur": 1.813,
    "text": "The pig jumps in the mud.",
    "words": [
     {
-     "d": 0.199,
+     "d": 0.198,
      "t": 0.035,
      "w": "The"
     },
@@ -1222,17 +396,17 @@
     },
     {
      "d": 0.107,
-     "t": 1.013,
+     "t": 1.012,
      "w": "in"
     },
     {
      "d": 0.076,
-     "t": 1.135,
+     "t": 1.134,
      "w": "the"
     },
     {
-     "d": 0.428,
-     "t": 1.227,
+     "d": 0.427,
+     "t": 1.226,
      "w": "mud"
     }
    ]
@@ -1461,7 +635,7 @@
     },
     {
      "d": 0.206,
-     "t": 1.163,
+     "t": 1.162,
      "w": "up"
     },
     {
@@ -1527,12 +701,8 @@
    "text": "Fish."
   },
   "word/g": {
-   "dur": 0.571,
+   "dur": 0.572,
    "text": "Goat."
-  },
-  "word/h": {
-   "dur": 0.453,
-   "text": "Hat."
   },
   "word/i": {
    "dur": 1.054,
@@ -1579,7 +749,7 @@
    "text": "Sun."
   },
   "word/t": {
-   "dur": 0.671,
+   "dur": 0.672,
    "text": "Teddy."
   },
   "word/u": {
@@ -1605,6 +775,232 @@
   "word/z": {
    "dur": 0.846,
    "text": "Zebra."
+  }
+ },
+ "emma": {
+  "letter/a": {
+   "dur": 0.386,
+   "text": "A!"
+  },
+  "letter/b": {
+   "dur": 0.501,
+   "text": "B!"
+  },
+  "letter/c": {
+   "dur": 0.594,
+   "text": "C!"
+  },
+  "letter/d": {
+   "dur": 0.458,
+   "text": "D!"
+  },
+  "letter/e": {
+   "dur": 0.417,
+   "text": "E!"
+  },
+  "letter/f": {
+   "dur": 0.475,
+   "text": "F!"
+  },
+  "letter/g": {
+   "dur": 0.489,
+   "text": "G!"
+  },
+  "letter/h": {
+   "dur": 0.522,
+   "text": "H!"
+  },
+  "letter/i": {
+   "dur": 0.297,
+   "text": "I."
+  },
+  "letter/j": {
+   "dur": 0.54,
+   "text": "J!"
+  },
+  "letter/k": {
+   "dur": 0.582,
+   "text": "K!"
+  },
+  "letter/l": {
+   "dur": 0.497,
+   "text": "L!"
+  },
+  "letter/m": {
+   "dur": 0.499,
+   "text": "M!"
+  },
+  "letter/n": {
+   "dur": 0.458,
+   "text": "N!"
+  },
+  "letter/o": {
+   "dur": 0.418,
+   "text": "O!"
+  },
+  "letter/p": {
+   "dur": 0.467,
+   "text": "P!"
+  },
+  "letter/q": {
+   "dur": 0.552,
+   "text": "Q!"
+  },
+  "letter/r": {
+   "dur": 0.388,
+   "text": "R!"
+  },
+  "letter/s": {
+   "dur": 0.529,
+   "text": "S!"
+  },
+  "letter/t": {
+   "dur": 0.532,
+   "text": "T!"
+  },
+  "letter/u": {
+   "dur": 0.557,
+   "text": "U!"
+  },
+  "letter/v": {
+   "dur": 0.473,
+   "text": "V!"
+  },
+  "letter/w": {
+   "dur": 0.755,
+   "text": "W!"
+  },
+  "letter/x": {
+   "dur": 0.464,
+   "text": "X!"
+  },
+  "letter/y": {
+   "dur": 0.572,
+   "text": "Y!"
+  },
+  "letter/z": {
+   "dur": 0.487,
+   "text": "Z!"
+  },
+  "praise/again": {
+   "dur": 0.929,
+   "text": "Try again!"
+  },
+  "praise/excellent": {
+   "dur": 0.841,
+   "text": "Excellent!"
+  },
+  "praise/good": {
+   "dur": 0.495,
+   "text": "Good!"
+  },
+  "praise/great": {
+   "dur": 0.801,
+   "text": "Great job!"
+  },
+  "word/a": {
+   "dur": 0.631,
+   "text": "Apple!"
+  },
+  "word/b": {
+   "dur": 0.535,
+   "text": "Ball!"
+  },
+  "word/c": {
+   "dur": 0.64,
+   "text": "Cat!"
+  },
+  "word/d": {
+   "dur": 0.584,
+   "text": "Dog!"
+  },
+  "word/e": {
+   "dur": 0.481,
+   "text": "Egg!"
+  },
+  "word/f": {
+   "dur": 0.7,
+   "text": "Fish!"
+  },
+  "word/g": {
+   "dur": 0.58,
+   "text": "Goat!"
+  },
+  "word/h": {
+   "dur": 0.622,
+   "text": "Hat!"
+  },
+  "word/i": {
+   "dur": 0.933,
+   "text": "Ice cream!"
+  },
+  "word/j": {
+   "dur": 0.647,
+   "text": "Juice!"
+  },
+  "word/k": {
+   "dur": 0.618,
+   "text": "Kite!"
+  },
+  "word/l": {
+   "dur": 0.649,
+   "text": "Lion!"
+  },
+  "word/m": {
+   "dur": 0.626,
+   "text": "Moon!"
+  },
+  "word/n": {
+   "dur": 0.806,
+   "text": "Noodles!"
+  },
+  "word/o": {
+   "dur": 0.987,
+   "text": "Octopus!"
+  },
+  "word/p": {
+   "dur": 0.541,
+   "text": "Pig!"
+  },
+  "word/q": {
+   "dur": 0.648,
+   "text": "Queen!"
+  },
+  "word/r": {
+   "dur": 0.798,
+   "text": "Rainbow!"
+  },
+  "word/s": {
+   "dur": 0.622,
+   "text": "Sun!"
+  },
+  "word/t": {
+   "dur": 0.638,
+   "text": "Teddy!"
+  },
+  "word/u": {
+   "dur": 0.858,
+   "text": "Umbrella!"
+  },
+  "word/v": {
+   "dur": 0.636,
+   "text": "Van!"
+  },
+  "word/w": {
+   "dur": 0.629,
+   "text": "Whale!"
+  },
+  "word/x": {
+   "dur": 0.726,
+   "text": "Fox!"
+  },
+  "word/y": {
+   "dur": 0.677,
+   "text": "Yo-yo!"
+  },
+  "word/z": {
+   "dur": 0.725,
+   "text": "Zebra!"
   }
  }
 }

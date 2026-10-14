@@ -33,13 +33,16 @@ for voice, clips in sorted(timings.items()):
     for key, info in sorted(clips.items()):
         kind, lid = key.split("/")
         path = ROOT / "public/audio" / voice / kind / f"{lid}.mp3"
-        segs, _ = model.transcribe(str(path), language="en", beam_size=5, initial_prompt=info["text"] if kind != "letter" else "The alphabet: A, B, C, D, E, F, G.")
+        prompt = "The alphabet: A, B, C, D, E, F, G." if kind == "letter" else None
+        segs, _ = model.transcribe(str(path), language="en", beam_size=5, initial_prompt=prompt)
         heard = norm(" ".join(s.text for s in segs))
         want = norm(info["text"])
         total += 1
         ok = heard == want or heard.replace(" ", "") == want.replace(" ", "")
         if kind == "letter":
             ok = heard in LETTER_SOUNDS.get(lid, {lid})
+        elif kind == "sound":
+            ok = bool(heard)  # onomatopoeia: just make sure something word-like was said
         if not ok:
             bad += 1
             print(f"MISMATCH {voice}/{key}: want '{want}' heard '{heard}'")

@@ -31,6 +31,9 @@ function ensure() {
   return ctx;
 }
 
+/** The shared AudioContext (created on demand). */
+export const context = () => ensure();
+
 /** The context and the (initially silent) bus that background music plays into. */
 export function musicGraph() {
   return ensure() ? { ctx, bus: musicBus } : null;
@@ -112,12 +115,26 @@ export function stopVoice() {
  * Plays a narration clip, replacing any clip already playing.
  * Resolves to a handle { duration, time(), done } or null if sound is unavailable.
  */
-export async function playVoice(path, { onEnd } = {}) {
+export async function playVoice(path, { onEnd, rate = 1 } = {}) {
+  if (import.meta.env.DEV) (window.__voiceLog ||= []).push(path);
   const buf = await load(path);
   if (!buf || !canPlay()) return null;
+  return playBuffer(buf, { onEnd, rate });
+}
+
+/** Play raw samples (e.g. the child's own recording) as a voice clip. */
+export function playPcm(pcm, sampleRate, opts) {
+  if (!canPlay() || !pcm.length) return null;
+  const buf = ctx.createBuffer(1, pcm.length, sampleRate);
+  buf.getChannelData(0).set(pcm);
+  return playBuffer(buf, opts);
+}
+
+function playBuffer(buf, { onEnd, rate = 1 } = {}) {
   stopVoice();
   const src = ctx.createBufferSource();
   src.buffer = buf;
+  src.playbackRate.value = rate;
   const gain = ctx.createGain();
   src.connect(gain).connect(voiceBus);
   const t0 = ctx.currentTime + 0.02;
@@ -125,9 +142,9 @@ export async function playVoice(path, { onEnd } = {}) {
   const handle = {
     src,
     gain,
-    duration: buf.duration,
+    duration: buf.duration / rate,
     cancelled: false,
-    time: () => ctx.currentTime - t0,
+    time: () => (ctx.currentTime - t0) * rate,
     done: null,
   };
   handle.done = new Promise((res) => {

@@ -4,9 +4,12 @@ Usage (from the project root):
     uv run --with edge-tts --with numpy python tools/tts.py [--only a,b,c] [--force]
 
 Output:
-    public/audio/<voice>/letter/<id>.mp3
-    public/audio/<voice>/word/<id>.mp3
-    public/audio/<voice>/sentence/<id>.mp3
+    public/audio/emma/letter/<id>.mp3     cheerful narrator: "A!"
+    public/audio/emma/word/<id>.mp3       cheerful narrator: "Apple!"
+    public/audio/ava/word/<id>.mp3        second adult voice, alternates with the narrator on taps
+    public/audio/ava/sentence/<id>.mp3    calm storyteller for the story pages
+    public/audio/ana/sound/<id>.mp3       animal / vehicle sound ("Woof! Woof!") if the letter has one
+    public/audio/emma/praise/<key>.mp3    follow-read feedback ("Excellent!" ...)
     src/data/timings.json   (clip durations + per-word timings for karaoke highlighting)
 
 Clips are trimmed (so they start the instant a child taps), level-matched and
@@ -29,11 +32,22 @@ OUT = ROOT / "public/audio"
 TIMINGS = ROOT / "src/data/timings.json"
 SR = 24000
 
-# voice key -> (edge voice, rate for single words, rate for sentences)
+# voice key -> (edge voice, rate for short clips, rate for sentences)
+# Emma was picked as the word-page narrator because her pitch moves ~13 semitones
+# within a single word (Ava: ~6), which is what "cheerful" sounds like.
 VOICES = {
+    "emma": ("en-US-EmmaNeural", "-10%", "-20%"),
     "ava": ("en-US-AvaNeural", "-20%", "-28%"),
-    "ana": ("en-US-AnaNeural", "-12%", "-18%"),
+    "ana": ("en-US-AnaNeural", "-8%", "-12%"),
 }
+
+PRAISE = {"excellent": "Excellent!", "great": "Great job!", "good": "Good!", "again": "Try again!"}
+
+# Spellings that make the letter name come out clearly (checked with tools/verify_audio.py).
+LETTER_TEXT = {"i": "I."}  # "I!" comes out with a breathy onset that sounds like "bye"
+
+# Words whose second-voice reading did not come out clearly; the page then uses the narrator only.
+SKIP_ALT = {"h"}  # Ava's "Hat." is heard as "hot"
 
 
 def sentence_case(s: str) -> str:
@@ -41,12 +55,20 @@ def sentence_case(s: str) -> str:
 
 
 def jobs_for(entry):
+    """(voice, kind, id, text) for one letter."""
     lid = entry["id"]
-    return [
-        ("letter", lid, f"{lid.upper()}."),
-        ("word", lid, f"{sentence_case(entry['word'])}."),
-        ("sentence", lid, entry["sentence"]),
+    word = sentence_case(entry["word"])
+    jobs = [
+        ("emma", "letter", lid, LETTER_TEXT.get(lid, f"{lid.upper()}!")),
+        ("emma", "word", lid, f"{word}!"),
+        # second adult voice for taps: hearing two speakers helps, and adult models keep
+        # final consonants clear (the child voice was too soft on dog / goat / hat ...)
+        *([] if lid in SKIP_ALT else [("ava", "word", lid, f"{word}.")]),
+        ("ava", "sentence", lid, entry["sentence"]),
     ]
+    if entry.get("sound"):
+        jobs.append(("ana", "sound", lid, entry["sound"]))
+    return jobs
 
 
 async def synth(text, voice, rate):
@@ -148,11 +170,11 @@ async def main():
     for entry in LETTERS:
         if only and entry["id"] not in only:
             continue
-        for vkey in VOICES:
-            for kind, lid, text in jobs_for(entry):
-                if kind == "letter" and vkey != "ava":
-                    continue  # letter names are only spoken by the grown-up narrator
-                tasks.append(run(vkey, kind, lid, text))
+        for vkey, kind, lid, text in jobs_for(entry):
+            tasks.append(run(vkey, kind, lid, text))
+    if not only:
+        for key, text in PRAISE.items():
+            tasks.append(run("emma", "praise", key, text))
     results = await asyncio.gather(*tasks, return_exceptions=True)
     errs = [r for r in results if isinstance(r, Exception)]
     TIMINGS.write_text(json.dumps(timings, ensure_ascii=False, indent=1, sort_keys=True) + "\n", "utf-8")

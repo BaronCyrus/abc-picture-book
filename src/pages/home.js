@@ -118,6 +118,7 @@ export async function create(root) {
 
   const board = h('div.board');
   let hint = null;
+  let leaving = false;
   const dropHint = () => {
     if (!hint) return;
     const el = hint;
@@ -142,11 +143,15 @@ export async function create(root) {
         'span.hopper',
         {},
         h(
-          'span.glyph',
+          'span.swayer',
           {},
-          L.upper,
-          hasArt(L.art) && h('img.sticker', { src: thumbUrl(L.art), alt: '', decoding: 'async' }),
-          store.isDone(L.id) && h('span.star', { html: STAR_SVG }),
+          h(
+            'span.glyph',
+            {},
+            L.upper,
+            hasArt(L.art) && h('img.sticker', { src: thumbUrl(L.art), alt: '', decoding: 'async' }),
+            store.isDone(L.id) && h('span.star', { html: STAR_SVG }),
+          ),
         ),
       ),
     );
@@ -156,12 +161,20 @@ export async function create(root) {
     });
     for (const ev of ['pointerup', 'pointerleave', 'pointercancel']) el.addEventListener(ev, () => el.classList.remove('press'));
     el.addEventListener('click', () => {
+      if (leaving) return;
+      leaving = true;
       const r = el.getBoundingClientRect();
       sfx.pop(1 + (L.index % 5) * 0.06);
       session.lastLetter = L.id;
       store.hinted = true;
       dropHint();
-      go(L.id, { x: r.left + r.width / 2, y: r.top + r.height / 2, color: L.bg });
+      // every tap makes the letter jump; the page turns once it has landed
+      const glyph = el.querySelector('.glyph');
+      gsap.timeline()
+        .to(glyph, { y: '-28%', scaleX: 0.9, scaleY: 1.12, duration: 0.14, ease: 'power2.out' })
+        .to(glyph, { y: '0%', scaleX: 1.1, scaleY: 0.9, duration: 0.13, ease: 'power2.in' })
+        .to(glyph, { scaleX: 1, scaleY: 1, duration: 0.3, ease: 'elastic.out(1.2, 0.35)' });
+      setTimeout(() => go(L.id, { x: r.left + r.width / 2, y: r.top + r.height / 2, color: L.bg }), 300);
     });
     return el;
   });

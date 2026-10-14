@@ -308,6 +308,12 @@ img {
     calc(var(--o) * -1) 0.055em 0 #fff,
     0 0.17em 0.1em rgba(52, 40, 86, 0.3);
   transform-origin: 50% 86%;
+}
+.tile .swayer {
+  position: absolute;
+  inset: 0;
+  display: block;
+  transform-origin: 50% 86%;
   animation: sway var(--sway, 3s) ease-in-out var(--delay, 0s) infinite alternate;
 }
 @keyframes sway {
@@ -521,41 +527,66 @@ img {
 
 /* -------------------------------------------------------------- word -- */
 
+/* Portrait: [letter | object] on top, then the word, then the microphone.
+   Landscape: the same pair, with word and microphone side by side underneath. */
 .word-page {
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr) auto;
-  grid-template-areas: 'letters' 'slot' 'word';
-  padding-bottom: calc(var(--btn) + var(--gap) * 1.6 + var(--safe-b));
+  grid-template-rows: auto auto;
+  align-content: center;
+  row-gap: calc(var(--gap) * 1.2);
+  padding: calc(var(--btn) + var(--gap) * 1.2 + var(--safe-t)) calc(var(--gap) + var(--safe-r))
+    calc(var(--btn) * 0.6 + var(--gap) + var(--safe-b)) calc(var(--gap) + var(--safe-l));
 }
-.word-page .letters {
-  grid-area: letters;
-  align-self: start;
-  justify-self: center;
-  margin-top: calc(var(--gap) * 0.6);
-  display: flex;
+/* portrait: both halves are limited by the width, so give the letter the larger share
+   and size the row to its content instead of stretching it down the screen */
+.wp-stage {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  align-items: stretch;
+  height: clamp(220px, 66vw, 52vh);
+  min-height: 0;
+}
+.big-letter {
+  position: relative;
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  place-items: center;
+}
+.bl-sway {
+  display: inline-block;
+  transform-origin: 50% 90%;
+  animation: sway 3.2s ease-in-out infinite alternate;
+}
+.bl-in {
+  --o: 0.042em;
+  display: inline-flex;
   align-items: baseline;
-  gap: 0.16em;
-  font-size: clamp(60px, 19vmin, 168px);
-  line-height: 1.1;
+  gap: 0.06em;
+  line-height: 1;
   font-weight: 700;
   color: var(--c);
+  transform-origin: 50% 92%;
   text-shadow:
-    0 0.04em 0 var(--cd),
-    0 0.1em 0.12em var(--shadow);
+    0 0.045em 0 var(--cd),
+    var(--o) 0 0 #fff,
+    calc(var(--o) * -1) 0 0 #fff,
+    0 calc(var(--o) * -1) 0 #fff,
+    0 calc(var(--o) + 0.045em) 0 #fff,
+    calc(var(--o) * 0.72) calc(var(--o) * -0.72) 0 #fff,
+    calc(var(--o) * -0.72) calc(var(--o) * -0.72) 0 #fff,
+    calc(var(--o) * 0.72) calc(var(--o) * 0.72 + 0.045em) 0 #fff,
+    calc(var(--o) * -0.72) calc(var(--o) * 0.72 + 0.045em) 0 #fff,
+    var(--o) 0.045em 0 #fff,
+    calc(var(--o) * -1) 0.045em 0 #fff,
+    0 0.12em 0.08em rgba(52, 40, 86, 0.28);
 }
-.word-page .letters .lo {
-  color: var(--paper);
-  -webkit-text-stroke: 0;
-  text-shadow:
-    0 0.04em 0 rgba(59, 51, 85, 0.25),
-    0 0.1em 0.12em var(--shadow);
-}
-.word-page.dark .letters .lo {
-  color: #fff;
+.bl-in .lo {
+  font-size: 0.6em;
+  color: var(--cd);
 }
 
 .slot {
-  grid-area: slot;
   position: relative;
   min-height: 0;
   min-width: 0;
@@ -572,20 +603,24 @@ img {
   outline-offset: -6px;
 }
 
-.word-page .wordbox {
-  grid-area: word;
-  justify-self: center;
+.wp-bottom {
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: calc(var(--gap) * 0.5);
+  gap: calc(var(--gap) * 0.7);
+  padding-top: calc(var(--gap) * 0.4);
+}
+.wordbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 .word {
   display: inline-flex;
   align-items: baseline;
   padding: 0.06em 0.42em 0.12em;
   border-radius: 0.36em;
-  font-size: clamp(46px, 15.5vmin, 138px);
+  font-size: clamp(40px, 12.5vmin, 112px);
   line-height: 1.12;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -596,10 +631,6 @@ img {
     inset 0 -0.05em 0 rgba(59, 51, 85, 0.1),
     0 0.05em 0 rgba(59, 51, 85, 0.2),
     0 0.12em 0.2em var(--shadow);
-  transition: transform 0.12s ease-out;
-}
-.word:active {
-  transform: scale(0.95);
 }
 .word .ch {
   display: inline-block;
@@ -610,12 +641,20 @@ img {
   color: var(--c);
   text-shadow: 0 0.035em 0 var(--cd);
 }
+/* while the child is recording: "say this one" */
+.word.cue {
+  animation: word-cue 0.9s ease-in-out infinite;
+}
+@keyframes word-cue {
+  0%, 100% { box-shadow: inset 0 -0.05em 0 rgba(59, 51, 85, 0.1), 0 0.05em 0 rgba(59, 51, 85, 0.2), 0 0 0 0 rgba(255, 255, 255, 0.9); }
+  50% { box-shadow: inset 0 -0.05em 0 rgba(59, 51, 85, 0.1), 0 0.05em 0 rgba(59, 51, 85, 0.2), 0 0 0 0.16em rgba(255, 255, 255, 0.85); }
+}
 .zhline {
   height: 1.5em;
-  margin-top: 0.35em;
+  margin-top: 0.3em;
   font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
   font-weight: 600;
-  font-size: clamp(16px, 4.6vmin, 30px);
+  font-size: clamp(16px, 4.4vmin, 28px);
   color: var(--ink-soft);
   opacity: 0;
   transition: opacity 0.2s;
@@ -623,52 +662,233 @@ img {
 .show-zh .zhline {
   opacity: 1;
 }
+.word-page:not(.show-zh) .wordbox .zhline {
+  height: 0;
+  margin: 0;
+}
 .dark .zhline {
   color: rgba(255, 255, 255, 0.8);
 }
 
-.tap-hint {
+/* ------------------------------------------------- follow-read button -- */
+
+.readbox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+}
+.mic {
+  --lvl: 0;
+  position: relative;
+  width: calc(var(--btn) * 1.18);
+  height: calc(var(--btn) * 1.18);
+  border-radius: 50%;
+  touch-action: none;
+}
+.mic-face {
   position: absolute;
-  left: 50%;
-  top: 50%;
-  width: clamp(60px, 16vmin, 110px);
-  aspect-ratio: 1;
-  margin: -4% 0 0 6%;
+  inset: 0;
+  z-index: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: #fff;
+  background-color: #f2683c;
+  background-image: var(--grain);
+  box-shadow:
+    inset 0 -6px 0 rgba(0, 0, 0, 0.14),
+    0 5px 0 #c94a22,
+    0 10px 18px var(--shadow);
+  transition: transform 0.15s ease-out, background-color 0.2s;
+}
+.mic-face svg {
+  width: 54%;
+  height: 54%;
+  fill: none;
+  stroke: #fff;
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+.mic-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  border: 4px solid rgba(242, 104, 60, 0.55);
+  opacity: 0;
+  pointer-events: none;
+}
+.mic[data-state='idle'] .mic-ring {
+  animation: mic-idle 2.4s ease-out infinite;
+}
+.mic[data-state='idle'] .mic-ring.r2 {
+  animation-delay: 1.2s;
+}
+@keyframes mic-idle {
+  0% { transform: scale(1); opacity: 0.7; }
+  70%, 100% { transform: scale(1.55); opacity: 0; }
+}
+.mic[data-state='wait'] .mic-face,
+.mic[data-state='rec'] .mic-face {
+  transform: scale(1.12);
+  background-color: #e5466e;
+}
+/* the rings follow the child's voice */
+.mic[data-state='rec'] .mic-ring {
+  opacity: calc(0.25 + var(--lvl) * 0.75);
+  transform: scale(calc(1.08 + var(--lvl) * 0.75));
+  border-color: rgba(229, 70, 110, 0.6);
+  transition: transform 0.06s linear, opacity 0.06s linear;
+}
+.mic[data-state='rec'] .mic-ring.r2 {
+  transform: scale(calc(1.2 + var(--lvl) * 1.1));
+  opacity: calc(var(--lvl) * 0.6);
+}
+.mic[data-state='think'] .mic-face {
+  animation: mic-think 0.5s ease-in-out infinite alternate;
+}
+@keyframes mic-think {
+  from { transform: scale(0.96) rotate(-6deg); }
+  to { transform: scale(1.04) rotate(6deg); }
+}
+.mic[data-state='play'] .mic-face {
+  background-color: #2fae9e;
+  animation: mic-think 0.3s ease-in-out infinite alternate;
+}
+.mic[data-state='off'] .mic-face {
+  background-color: #b9b3c6;
+}
+.mic-cap {
+  font-family: 'PingFang SC', 'Microsoft YaHei', system-ui, sans-serif;
+  font-size: clamp(12px, 3.2vmin, 17px);
+  font-weight: 600;
+  color: var(--ink-soft);
+  white-space: nowrap;
+}
+.dark .mic-cap {
+  color: rgba(255, 255, 255, 0.75);
+}
+.mic-cap.tip {
+  color: var(--ink);
+}
+.dark .mic-cap.tip {
+  color: #fff;
+}
+
+/* --------------------------------------------------------- the cheer -- */
+
+.praise {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 11%;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2em;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.3s;
-  filter: drop-shadow(0 4px 4px rgba(52, 40, 86, 0.35));
 }
-.tap-hint.on {
+.praise.on {
   opacity: 1;
-  animation: tap-hint 1.1s ease-in-out infinite;
 }
-@keyframes tap-hint {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(-10%, -10%) scale(0.88); }
+.pr-text {
+  --o: 0.05em;
+  display: flex;
+  font-size: clamp(54px, 15vmin, 140px);
+  font-weight: 700;
+  line-height: 1;
+}
+.praise[data-tier='again'] .pr-text {
+  font-size: clamp(40px, 11vmin, 96px);
+}
+.pr-text span {
+  display: inline-block;
+  white-space: pre;
+  color: var(--c);
+  text-shadow:
+    var(--o) 0 0 #fff,
+    calc(var(--o) * -1) 0 0 #fff,
+    0 var(--o) 0 #fff,
+    0 calc(var(--o) * -1) 0 #fff,
+    calc(var(--o) * 0.72) calc(var(--o) * 0.72) 0 #fff,
+    calc(var(--o) * -0.72) calc(var(--o) * 0.72) 0 #fff,
+    calc(var(--o) * 0.72) calc(var(--o) * -0.72) 0 #fff,
+    calc(var(--o) * -0.72) calc(var(--o) * -0.72) 0 #fff,
+    0 0.1em 0.12em rgba(52, 40, 86, 0.35);
+  opacity: 0;
+  transform: translateY(0.4em) scale(0.3) rotate(-20deg);
+}
+.praise.on .pr-text span {
+  animation: pr-pop 0.55s cubic-bezier(0.34, 1.7, 0.6, 1) forwards, pr-bob 1.2s ease-in-out 0.6s infinite alternate;
+  animation-delay: calc(var(--i) * 0.045s), calc(0.6s + var(--i) * 0.08s);
+}
+@keyframes pr-pop {
+  to { opacity: 1; transform: none; }
+}
+@keyframes pr-bob {
+  from { transform: translateY(0) rotate(-3deg); }
+  to { transform: translateY(-0.08em) rotate(3deg); }
+}
+.pr-stars {
+  display: flex;
+  gap: 0.2em;
+  font-size: clamp(40px, 10vmin, 92px);
+}
+.pr-star {
+  width: 1em;
+  height: 1em;
+  opacity: 0;
+  transform: scale(0.2) rotate(-90deg);
+}
+.pr-star svg {
+  width: 100%;
+  height: 100%;
+  fill: rgba(255, 255, 255, 0.55);
+  stroke: rgba(59, 51, 85, 0.25);
+  stroke-width: 1.2;
+  stroke-linejoin: round;
+  filter: drop-shadow(0 0.04em 0.04em rgba(52, 40, 86, 0.35));
+}
+.pr-star.on svg {
+  fill: #ffd23f;
+  stroke: #e0a800;
+}
+.praise.on .pr-star {
+  animation: pr-star 0.5s cubic-bezier(0.34, 1.8, 0.6, 1) forwards;
+  animation-delay: calc(0.35s + var(--i) * 0.18s);
+}
+@keyframes pr-star {
+  to { opacity: 1; transform: none; }
 }
 
 @media (orientation: landscape) {
   .word-page {
-    grid-template-columns: minmax(0, 1.08fr) minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-areas: 'slot letters' 'slot word';
-    padding-bottom: var(--safe-b);
-    padding-left: calc(var(--safe-l) + var(--btn) * 0.55);
-    padding-right: calc(var(--safe-r) + var(--btn) * 0.55 + var(--gap));
-    column-gap: var(--gap);
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-content: stretch;
+    row-gap: 0;
+    padding-top: calc(var(--btn) * 0.5 + var(--gap) + var(--safe-t));
+    padding-left: calc(var(--btn) + var(--gap) * 1.5 + var(--safe-l));
+    padding-right: calc(var(--btn) + var(--gap) * 1.5 + var(--safe-r));
+    padding-bottom: calc(var(--gap) + var(--safe-b));
   }
-  .word-page .letters {
-    align-self: end;
-    margin: 0 0 0.02em;
-    font-size: clamp(56px, 22vmin, 190px);
+  .wp-stage {
+    grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
+    height: auto;
   }
-  .word-page .wordbox {
-    align-self: start;
-    margin: calc(var(--gap) * 0.4) 0 0;
+  .wp-bottom {
+    flex-direction: row;
+    justify-content: center;
+    gap: calc(var(--gap) * 2.2);
+    padding-top: 0;
   }
   .word {
-    font-size: clamp(40px, 15vmin, 132px);
+    font-size: clamp(36px, 11vmin, 100px);
+  }
+  .praise {
+    top: 14%;
   }
 }
 
@@ -833,8 +1053,8 @@ img {
 
 @media (prefers-reduced-motion: reduce) {
   .btn.go.nudge,
-  .tap-hint.on,
-  .tile .glyph,
+  .tile .swayer,
+  .bl-sway,
   .cover-title .blk {
     animation: none;
   }

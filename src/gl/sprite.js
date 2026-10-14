@@ -10,6 +10,8 @@ uniform float uBend;
 uniform vec4 uWave;      // amp, freq, phase, -
 uniform vec4 uWaveDir;   // phase axis (uv).xy, displacement (local).zw
 uniform vec4 uWaveMask;  // mask = pow(clamp(dot(uv, xy) + z, 0, 1), w)
+uniform vec4 uWag;       // a round patch that swings: centre (uv).xy, radius, amount
+uniform vec4 uWagDir;    // swing direction (local).xy, phase
 uniform vec2 uShadowOff;
 varying vec2 vUv;
 void main() {
@@ -21,6 +23,10 @@ void main() {
     float m = pow(clamp(dot(uv, uWaveMask.xy) + uWaveMask.z, 0.0, 1.0), uWaveMask.w);
     float s = sin(dot(uv, uWaveDir.xy) * uWave.y * 6.2831853 + uWave.z);
     p.xy += uWaveDir.zw * (uWave.x * m * s);
+  }
+  if (uWag.w != 0.0) {
+    float m = 1.0 - smoothstep(uWag.z * 0.3, uWag.z, distance(uv, uWag.xy));
+    p.xy += uWagDir.xy * (uWag.w * m * sin(uWagDir.z));
   }
   vec4 mv = modelViewMatrix * vec4(p, 1.0);
   mv.xy += uShadowOff;
@@ -128,6 +134,8 @@ export class Sprite extends Node2D {
       uWave: { value: new THREE.Vector4(0, 1, 0, 0) },
       uWaveDir: { value: new THREE.Vector4(0, 1, 1, 0) },
       uWaveMask: { value: new THREE.Vector4(0, 0, 1, 1) },
+      uWag: { value: new THREE.Vector4(0.5, 0.5, 0.2, 0) },
+      uWagDir: { value: new THREE.Vector4(1, 0, 0, 0) },
       uShadowOff: { value: new THREE.Vector2(0, 0) },
     };
 
@@ -171,6 +179,22 @@ export class Sprite extends Node2D {
   set waveAmp(v) { this.u.uWave.value.x = v; }
   get wavePhase() { return this.u.uWave.value.z; }
   set wavePhase(v) { this.u.uWave.value.z = v; }
+  /** swing amount (stage units) of the patch set up with tail() */
+  get wagAmp() { return this.u.uWag.value.w; }
+  set wagAmp(v) { this.u.uWag.value.w = v; }
+  get wagPhase() { return this.u.uWagDir.value.z; }
+  set wagPhase(v) { this.u.uWagDir.value.z = v; }
+
+  /** Mark a round patch of the picture (a tail, an ear ...) that can swing on its own. */
+  tail(cx, cy, radius, dx = 1, dy = 0) {
+    this.u.uWag.value.set(cx, cy, radius, 0);
+    this.u.uWagDir.value.set(dx, dy, 0, 0);
+    return this;
+  }
+
+  get cropRight() { return this.u.uCrop.value.z; }
+  set cropRight(v) { this.u.uCrop.value.z = v; }
+
   get shadowAlpha() { return this.shadowU ? this.shadowU.uShadowA.value : 0; }
   set shadowAlpha(v) { if (this.shadowU) this.shadowU.uShadowA.value = v; }
 

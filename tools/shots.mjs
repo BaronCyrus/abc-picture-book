@@ -51,6 +51,18 @@ for (const job of jobs) {
       await page.screenshot({ path: file, type: 'jpeg', quality: 82 });
     }
     console.log(`story ${arg}: ${dur.toFixed(2)}s`);
+  } else if (kind === 'seq') {
+    // seq:#/d@0.4x10 -> open a route fresh and grab 10 frames, one every 0.4 s
+    const [every, count] = spec.split('x').map(Number);
+    await page.evaluate(() => { location.hash = '#/lab/meadow'; });
+    await page.waitForTimeout(1800);
+    await page.evaluate((hh) => { location.hash = hh; }, arg);
+    const name = arg.replace(/[^a-z0-9]+/gi, '_').replace(/^_|_$/g, '') || 'home';
+    for (let i = 0; i < count; i++) {
+      await page.waitForTimeout(every * 1000);
+      await page.screenshot({ path: join(outDir, `${name}_${String(i).padStart(2, '0')}.jpg`), type: 'jpeg', quality: 80 });
+    }
+    console.log(`seq ${arg}`);
   } else if (kind === 'play') {
     // real-time playback: play:a@0.3x12 -> 12 frames, one every 0.3 s, from the moment the page opens
     const [every, count] = spec.split('x').map(Number);
