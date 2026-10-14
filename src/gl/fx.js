@@ -77,7 +77,10 @@ export class Particles {
     if (sprite.parent) sprite.parent.remove(sprite);
     sprite.mesh.geometry.dispose();
     sprite.mesh.material.dispose();
-    if (sprite.shadowMesh) sprite.shadowMesh.material.dispose();
+    if (sprite.shadowMesh) {
+      sprite.shadowMesh.geometry.dispose();
+      sprite.shadowMesh.material.dispose();
+    }
   }
 
   clear() {

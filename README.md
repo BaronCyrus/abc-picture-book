@@ -16,6 +16,10 @@
                  └─ 下一个字母 …
 ```
 
+![单词页（手机竖屏）：读三遍字母 → 小狗从左边跑进来 → 跳一下、出单词 → 按住跟读 → Excellent](docs/screenshots/word-page-phone.jpg)
+
+![单词页（横屏）：鲸鱼从左边游进来，从字母后面穿过，到位后喷水](docs/screenshots/word-page-landscape.jpg)
+
 ## 运行
 
 ```bash
@@ -181,7 +185,7 @@ node tools/shots.mjs /tmp/shots --size 390x780 "story:a@1.0,2.4,end" "page:#/m@4
 node tools/mictest.mjs a /path/to/apple.wav
 ```
 
-把一段 WAV 当作麦克风输入，按住跟读按钮，输出评分档位（用来检查跟读整条链路）。
+把一段 WAV 当作麦克风输入，按住跟读按钮，输出评分档位（用来检查跟读整条链路）。加 `SHOT=cheer.jpg SHOT_AT=1100` 可在松手 1.1 秒后截下夸奖画面。
 
 ```bash
 node tools/livecheck.mjs https://baroncyrus.github.io/abc-picture-book/

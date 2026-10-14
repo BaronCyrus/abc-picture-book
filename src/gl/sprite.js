@@ -48,6 +48,10 @@ void main() {
   gl_FragColor = c * uOpacity;
 }`;
 
+// The shadow is drawn on a quad with a ring of padding around the picture: the
+// blurred (mip-biased) alpha reaches past the picture's edge, and cutting it off
+// there leaves a faint box around the paper. Past the edge the clamped border
+// texel fades out over about the blur radius (in screen pixels).
 const FRAG_SHADOW = /* glsl */ `
 uniform sampler2D map;
 uniform float uOpacity;
@@ -55,12 +59,49 @@ uniform float uShadowA;
 uniform float uBlur;
 uniform vec3 uShadowCol;
 uniform vec4 uCrop;
+uniform vec2 uPad;
 varying vec2 vUv;
 void main() {
-  float inside = step(uCrop.x, vUv.x) * step(vUv.x, uCrop.z) * step(uCrop.y, vUv.y) * step(vUv.y, uCrop.w);
-  float a = texture2D(map, vUv, uBlur).a * inside * uShadowA * uOpacity;
+  // a crop at 0 or 1 is just the picture's own edge, so the shadow may run past it
+  vec4 cr = vec4(uCrop.x <= 0.0 ? -9.0 : uCrop.x, uCrop.y <= 0.0 ? -9.0 : uCrop.y,
+                 uCrop.z >= 1.0 ? 9.0 : uCrop.z, uCrop.w >= 1.0 ? 9.0 : uCrop.w);
+  float inside = step(cr.x, vUv.x) * step(vUv.x, cr.z) * step(cr.y, vUv.y) * step(vUv.y, cr.w);
+  vec2 beyond = max(-vUv, vUv - 1.0);
+  vec2 fade = 1.0 - smoothstep(vec2(0.0), min(uPad, fwidth(vUv) * 22.0), beyond);
+  float a = texture2D(map, vUv, uBlur).a * fade.x * fade.y * inside * uShadowA * uOpacity;
   gl_FragColor = vec4(uShadowCol * a, a);
 }`;
+
+/**
+ * The picture's quad grid (same vertices as the plain quad, so bends and ripples
+ * line up with the paper) plus a ring of padding cells around it.
+ */
+function paddedPlane(w, hgt, seg, ax, ay, padU, padV) {
+  const steps = Array.from({ length: seg + 1 }, (_, i) => i / seg);
+  const us = [-padU, ...steps, 1 + padU];
+  const vs = [-padV, ...steps, 1 + padV];
+  const pos = [];
+  const uv = [];
+  for (const v of vs) {
+    for (const u of us) {
+      pos.push((u - ax) * w, (v - ay) * hgt, 0);
+      uv.push(u, v);
+    }
+  }
+  const n = us.length;
+  const idx = [];
+  for (let j = 0; j < vs.length - 1; j++) {
+    for (let i = 0; i < n - 1; i++) {
+      const a = j * n + i;
+      idx.push(a, a + 1, a + n + 1, a, a + n + 1, a + n);
+    }
+  }
+  const geo = new THREE.BufferGeometry();
+  geo.setAttribute('position', new THREE.Float32BufferAttribute(pos, 3));
+  geo.setAttribute('uv', new THREE.Float32BufferAttribute(uv, 2));
+  geo.setIndex(idx);
+  return geo;
+}
 
 const baseMat = {
   transparent: true,
@@ -140,16 +181,18 @@ export class Sprite extends Node2D {
     };
 
     if (sh) {
+      const pad = 0.15 * Math.max(w, hgt);
       const su = {
         ...this.u,
         uShadowOff: { value: new THREE.Vector2(sh.dx, sh.dy) },
         uShadowA: { value: sh.alpha },
         uBlur: { value: sh.blur },
         uShadowCol: { value: new THREE.Vector3(...sh.color) },
+        uPad: { value: new THREE.Vector2(pad / w, pad / hgt) },
       };
       this.shadowU = su;
       this.shadowMesh = new THREE.Mesh(
-        geo,
+        paddedPlane(w, hgt, seg, ax, ay, pad / w, pad / hgt),
         new THREE.ShaderMaterial({ ...baseMat, uniforms: su, vertexShader: VERT, fragmentShader: FRAG_SHADOW }),
       );
       this.shadowMesh.frustumCulled = false;

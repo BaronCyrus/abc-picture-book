@@ -3,6 +3,7 @@
 // holds the microphone button on a word page, and reports the cheer it got.
 //
 //   node tools/mictest.mjs <letter> <file.wav> [holdSeconds]
+//   SHOT=cheer.jpg SHOT_AT=1100 node tools/mictest.mjs ...   (screenshot 1.1 s after release)
 import { chromium } from 'playwright-core';
 
 const [id = 'a', wav, hold = '2.4'] = process.argv.slice(2);
@@ -43,7 +44,10 @@ const res = await page.evaluate(() => ({
   stars: document.querySelectorAll('.praise.on .pr-star.on').length,
   mic: document.querySelector('.mic').dataset.state,
 }));
-if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, type: 'jpeg', quality: 82 });
+if (process.env.SHOT) {
+  await page.waitForTimeout(Math.max(0, Number(process.env.SHOT_AT || 500) - 500));
+  await page.screenshot({ path: process.env.SHOT, type: 'jpeg', quality: 82 });
+}
 const r2 = (o) => o && Object.fromEntries(Object.entries(o).map(([k, v]) => [k, typeof v === 'number' ? Math.round(v * 100) / 100 : v]));
 console.log(JSON.stringify({ input: wav.split('/').pop(), stateWhileHolding: during, tier: res.grade?.tier, rank: res.grade?.rank, shown: res.shown, stars: res.stars, after: res.mic, attempt: r2(res.grade?.attempt), model: r2(res.grade?.model) }));
 if (errors.length) console.log('ERRORS', errors);
