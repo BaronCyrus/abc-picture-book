@@ -132,11 +132,39 @@ def polish(pcm: np.ndarray):
     return out * gain, (active[0] - start) / SR, (end - 1 - active[-1]) / SR
 
 
+# Extra readers of each word, used only to build the follow-read templates (not shipped).
+TEMPLATE_VOICES = {
+    "jenny": "en-US-JennyNeural", "aria": "en-US-AriaNeural", "sonia": "en-GB-SoniaNeural",
+    "libby": "en-GB-LibbyNeural", "ana": "en-US-AnaNeural", "maisie": "en-GB-MaisieNeural",
+    "andrew": "en-US-AndrewNeural", "brian": "en-US-BrianNeural",
+}
+
+
+async def template_voices():
+    sem = asyncio.Semaphore(6)
+
+    async def one(key, voice, entry):
+        path = ROOT / ".cache/voices" / key / f"{entry['id']}.mp3"
+        if path.exists():
+            return
+        async with sem:
+            mp3, _ = await synth(f"{sentence_case(entry['word'])}.", voice, "-10%")
+        pcm, _, _ = polish(decode(mp3))
+        encode(pcm, path)
+
+    await asyncio.gather(*[one(k, v, e) for k, v in TEMPLATE_VOICES.items() for e in LETTERS])
+    print(f"template voices ready in .cache/voices ({len(TEMPLATE_VOICES)} voices)")
+
+
 async def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--only", default="", help="comma separated letter ids")
     ap.add_argument("--force", action="store_true")
+    ap.add_argument("--template-voices", action="store_true", help="only build the extra voices for tools/templates.mjs")
     args = ap.parse_args()
+    if args.template_voices:
+        await template_voices()
+        return
     only = {s.strip() for s in args.only.split(",") if s.strip()}
 
     timings = json.loads(TIMINGS.read_text("utf-8")) if TIMINGS.exists() else {}

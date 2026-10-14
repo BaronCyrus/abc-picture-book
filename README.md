@@ -127,12 +127,39 @@ export default {
 
 跟读在本机完成，**录音不会上传或保存**：松手后立刻分析，播放给孩子听一遍后即丢弃。
 
-评分不是真正的发音测评。它判断孩子有没有清楚地说出一个和范读长度、音节数相近的词，然后给出鼓励档位：
+评分先判断"说的是不是这个词"：
 
-- 只要开口就至少是 Good；
-- 静音或太短才会提示 Try again。
+- 把孩子的发音转成声学指纹（MFCC）；
+- 用动态时间规整（DTW）和 26 个词、每个词 10 种嗓音的范读模板逐一比对。模板涵盖成人女声、男声、童声，以及美式和英式口音，存在 `src/data/templates.json`，第一次按跟读时才下载，约 94KB。
 
-想要真正的发音打分，可以接入在线测评服务（如 Azure 发音测评、讯飞），替换 `src/core/speech.js` 里的 `grade()`。
+| 情况 | 档位 |
+| --- | --- |
+| 目标词排第一 | Excellent |
+| 大致像 | Great |
+| 明显是另一个词 | Good（仍然鼓励） |
+| 静音或太短 | Try again |
+
+用"留出一种嗓音测试"的方式评估：
+
+- 正确的词进前 3 名的比例是 97%；
+- 说错的词被误判为对的比例是 4%。
+
+需要说明的局限：
+
+- 这些都是合成嗓音，**还没有用真实孩子的声音测过**；
+- 它不是发音打分，分辨不了 "cat" 读成 "cut" 这类细节。
+
+想要真正的发音测评，可以接入在线服务（如 Azure 发音测评、讯飞），替换 `src/core/speech.js` 里的 `grade()`。
+
+改了单词或范读语音后，重建模板：
+
+```bash
+uv run --with edge-tts --with numpy python tools/tts.py --template-voices
+```
+
+```bash
+node tools/templates.mjs
+```
 
 ## 测试
 
@@ -155,6 +182,12 @@ node tools/mictest.mjs a /path/to/apple.wav
 ```
 
 把一段 WAV 当作麦克风输入，按住跟读按钮，输出评分档位（用来检查跟读整条链路）。
+
+```bash
+node tools/livecheck.mjs https://baroncyrus.github.io/abc-picture-book/
+```
+
+发布后检查线上版本：从封面一路走到故事页，任何报错或请求失败都会列出来。
 
 ## 设计上的几个决定
 

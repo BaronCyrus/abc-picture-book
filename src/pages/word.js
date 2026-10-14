@@ -14,7 +14,7 @@ import { go } from '../core/router.js';
 import * as audio from '../core/audio.js';
 import { sfx } from '../core/audio.js';
 import { micSupported, startRecording } from '../core/mic.js';
-import { analyse, grade } from '../core/speech.js';
+import { analyse, grade, fingerprint, compact, placeAmong, unpackTemplates } from '../core/speech.js';
 import { store, session } from '../core/store.js';
 import { Backdrop, SCENES } from '../gl/backdrop.js';
 import { world, setStageRect, hold, clearLayer, onFrame, onResize, BOX, bounds, view } from '../gl/engine.js';
@@ -284,6 +284,11 @@ export async function create(root, id) {
     }, ms);
   }
 
+  // fingerprints of every word read by ten voices; fetched the first time the mic is used
+  let templatesP = null;
+  const templates = () =>
+    (templatesP ||= import('../data/templates.json').then((m) => unpackTemplates(m.default)).catch(() => null));
+
   async function model() {
     if (!modelFeatures) {
       const buf = await audio.load(wordClips[0]);
@@ -373,6 +378,7 @@ export async function create(root, id) {
     }
     pressing = true;
     busy = true;
+    templates();
     chantToken++;
     audio.stopVoice();
     hidePraise();
@@ -435,8 +441,11 @@ export async function create(root, id) {
     }
     setMic('think');
     const attempt = analyse(pcm, sampleRate);
-    const { tier } = grade(attempt, await model());
-    if (import.meta.env.DEV) window.__lastGrade = { tier, attempt, model: await model() };
+    let rank = 0;
+    const T = attempt.voiced > 0 ? await templates() : null;
+    if (T) rank = placeAmong(compact(fingerprint(pcm, sampleRate)), T, id).rank;
+    const { tier } = grade(attempt, await model(), rank);
+    if (import.meta.env.DEV) window.__lastGrade = { tier, rank, attempt, model: await model() };
     await cheer(tier, pcm, sampleRate, attempt);
     busy = false;
     if (!destroyed) setMic('idle');

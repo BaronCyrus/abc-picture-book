@@ -38,13 +38,13 @@ await page.mouse.up();
 await page.waitForFunction(() => window.__lastGrade, null, { timeout: 8000 }).catch(() => {});
 await page.waitForTimeout(500);
 const res = await page.evaluate(() => ({
-  grade: window.__lastGrade && { tier: window.__lastGrade.tier, attempt: window.__lastGrade.attempt, model: window.__lastGrade.model },
+  grade: window.__lastGrade && { tier: window.__lastGrade.tier, rank: window.__lastGrade.rank, attempt: window.__lastGrade.attempt, model: window.__lastGrade.model },
   shown: document.querySelector('.praise.on .pr-text')?.textContent || null,
   stars: document.querySelectorAll('.praise.on .pr-star.on').length,
   mic: document.querySelector('.mic').dataset.state,
 }));
 if (process.env.SHOT) await page.screenshot({ path: process.env.SHOT, type: 'jpeg', quality: 82 });
 const r2 = (o) => o && Object.fromEntries(Object.entries(o).map(([k, v]) => [k, typeof v === 'number' ? Math.round(v * 100) / 100 : v]));
-console.log(JSON.stringify({ input: wav.split('/').pop(), stateWhileHolding: during, tier: res.grade?.tier, shown: res.shown, stars: res.stars, after: res.mic, attempt: r2(res.grade?.attempt), model: r2(res.grade?.model) }));
+console.log(JSON.stringify({ input: wav.split('/').pop(), stateWhileHolding: during, tier: res.grade?.tier, rank: res.grade?.rank, shown: res.shown, stars: res.stars, after: res.mic, attempt: r2(res.grade?.attempt), model: r2(res.grade?.model) }));
 if (errors.length) console.log('ERRORS', errors);
 await browser.close();
